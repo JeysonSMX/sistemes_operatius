@@ -17,7 +17,7 @@
   <div class="hero-titol">
     <p class="miguetes"><a href="../index.html">Portada</a> / <a href="../sprints.html">Índex de sprints</a> / Sprint 1</p>
     <h1>Sprint 1 · Instal·lació i configuració inicial</h1>
-    <p class="subtitol">Índex d'apartats d'aquest sprint</p>
+    <p class="subtitol">Documentació tècnica del procés d'instal·lació, configuració i proves del sistema</p>
   </div>
 </header>
 
@@ -29,76 +29,130 @@
         <tr><th>#</th><th>Apartat</th></tr>
       </thead>
       <tbody>
-        <tr><td>1</td><td><a href="#apartat1">Instal·lació del sistema operatiu</a></td></tr>
-        <tr><td>2</td><td><a href="#apartat2">Configuració de xarxa bàsica</a></td></tr>
-        <tr><td>3</td><td><a href="#apartat3">Creació d'usuaris i grups</a></td></tr>
-        <tr><td>4</td><td><a href="#apartat4">Comprovació final</a></td></tr>
+        <tr><td>1</td><td><a href="#apartat1">Instal·lació del SO i configuració de GRUB</a></td></tr>
+        <tr><td>2</td><td><a href="#apartat2">Punts de restauració i còpies de seguretat (Timeshift)</a></td></tr>
+        <tr><td>3</td><td><a href="#apartat3">Configuració i verificació de la xarxa TCP/IP</a></td></tr>
+        <tr><td>4</td><td><a href="#apartat4">Instal·lació, gestió i desinstal·lació de programari</a></td></tr>
+        <tr><td>5</td><td><a href="#apartat5">Configuració de l'entorn de virtualització</a></td></tr>
+        <tr><td>6</td><td><a href="#apartat6">Comprovació i proves finals del sistema</a></td></tr>
       </tbody>
     </table>
 
+    <!-- APARTAT 1 -->
     <article class="apartat" id="apartat1">
-      <h2>1. Instal·lació del sistema operatiu</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Un cop arrencat
-         el suport d'instal·lació, cal seguir l'assistent i triar les opcions de
-         particionat abans de continuar. <strong>Aquest pas és irreversible</strong>,
-         així que revisa bé el disc de destinació.</p>
+      <h2>1. Instal·lació del SO i configuració de GRUB</h2>
+      <p>S'ha realitzat la instal·lació inicial del sistema operatiu <strong>Ubuntu</strong> en un entorn de màquina virtual. Un cop completada la instal·lació base, s'ha procedit a personalitzar el gestor d'arrencada <strong>GRUB</strong> per ajustar el temps d'espera del menú d'inici.</p>
+      
       <ul>
-        <li>Arrencar des del USB o la imatge ISO.</li>
-        <li>Triar l'idioma i la distribució de teclat.</li>
-        <li>Configurar el particionat del disc.</li>
-        <li>Esperar que finalitzi la còpia d'arxius i reiniciar.</li>
+        <li>Creació de la màquina virtual i assignació de recursos (RAM, disc rígid virtual i CPU).</li>
+        <li>Instal·lació neta del sistema operatiu Ubuntu.</li>
+        <li>Edició del fitxer de configuració de GRUB amb <code>sudo nano /etc/default/grub</code> per modificar la variable <code>GRUB_TIMEOUT</code>.</li>
+        <li>Actualització de la configuració d'arrencada mitjançant la comanda <code>sudo update-grub</code>.</li>
+        <li>Reinici del sistema amb <code>sudo reboot</code> per verificar el correcte funcionament del menú de GRUB.</li>
       </ul>
-      <img src="../img/exemple.svg" alt="Exemple de captura de pantalla de l'assistent d'instal·lació">
-      <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-         Un cop reiniciat el sistema, comprova que arrenca correctament i que
-         reconeix tot el maquinari abans de continuar amb el següent apartat.</p>
+
+      <p><strong>Captura del procés d'instal·lació d'Ubuntu:</strong></p>
+      <img src="../img/exemple_instalacio_ubuntu.png" alt="Exemple: Captura del procés d'instal·lació d'Ubuntu">
+
+      <p><strong>Captura de la configuració i actualització de GRUB:</strong></p>
+      <img src="../img/exemple_configuracio_grub.png" alt="Exemple: Captura de l'edició de /etc/default/grub i execució de update-grub">
+
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
+
+    <!-- APARTAT 2 -->
     <article class="apartat" id="apartat2">
-      <h2>2. Configuració de xarxa bàsica</h2>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-         ut aliquip ex ea commodo consequat. La configuració de xarxa és
-         <strong>imprescindible</strong> per poder actualitzar el sistema i
-         instal·lar programari nou.</p>
+      <h2>2. Punts de restauració i còpies de seguretat (Timeshift)</h2>
+      <p>Per garantir la seguretat de les dades i poder recuperar el sistema davant qualsevol fallada, s'ha configurat l'eina <strong>Timeshift</strong> per a la gestió de punts de restauració i la programació de còpies de seguretat automàtiques.</p>
+
       <ul>
-        <li>Comprovar l'adreça IP assignada amb <code>ip a</code>.</li>
-        <li>Configurar una IP estàtica si el servei ho requereix.</li>
-        <li>Verificar la connectivitat amb <code>ping</code>.</li>
+        <li>Instal·lació de l'eina mitjançant la comanda <code>sudo apt install timeshift</code>.</li>
+        <li>Configuració del tipus de snapshot utilitzant el mètode <strong>RSYNC</strong>.</li>
+        <li>Selecció de la unitat de destinació per a l'emmagatzematge dels punts de restauració.</li>
+        <li>Programació de les còpies de seguretat automàtiques (frequència diària/setmanal).</li>
+        <li>Creació manual d'un <strong>punt de restauració inicial</strong> abans de realitzar canvis crítics.</li>
+        <li>Simulació i comprovació de la recuperació del sistema des del punt de restauració creat.</li>
       </ul>
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-         dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+      <p><strong>Captura de la creació del punt de restauració amb Timeshift:</strong></p>
+      <img src="../img/exemple_timeshift_snapshot.png" alt="Exemple: Captura de la creació d'un punt de restauració a Timeshift">
+
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
+
+    <!-- APARTAT 3 -->
     <article class="apartat" id="apartat3">
-      <h2>3. Creació d'usuaris i grups</h2>
-      <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui
-         blanditiis praesentium voluptatum deleniti atque corrupti. Cada
-         usuari nou s'hauria d'assignar al <strong>grup mínim necessari</strong>
-         segons les tasques que ha de fer.</p>
-      <img src="../img/exemple.svg" alt="Exemple de captura de pantalla de la gestió d'usuaris">
+      <h2>3. Configuració i verificació de la xarxa TCP/IP</h2>
+      <p>Es va realitzar la configuració de la xarxa per assegurar la connectivitat local i a Internet. Es van verificar els paràmetres de la interfície de xarxa i es va comprovar la resolució de noms i l'estat dels ports.</p>
+
       <ul>
-        <li>Crear l'usuari amb <code>useradd</code>.</li>
-        <li>Assignar contrasenya amb <code>passwd</code>.</li>
-        <li>Afegir l'usuari als grups necessaris amb <code>usermod -aG</code>.</li>
+        <li>Comprovació de la interfície i adreça IP assignada amb <code>ip a</code>.</li>
+        <li>Configuració d'IP estàtica/paràmetres de xarxa mitjançant la interfície gràfica o fitxers de <strong>Netplan</strong> (<code>/etc/netplan/</code>) i aplicació amb <code>sudo netplan apply</code>.</li>
+        <li>Comprovació de la connectivitat local i de sortida a Internet utilitzant la comanda <code>ping</code>.</li>
+        <li>Verificació de la resolució de DNS amb <code>nslookup</code> i traçat de rutes amb <code>traceroute</code>.</li>
+        <li>Inspecció dels ports de comunicació actius al sistema mitjançant <code>ss -tulpn</code>.</li>
       </ul>
+
+      <p><strong>Captura de la configuració de xarxa i comandes de verificació:</strong></p>
+      <img src="../img/exemple_configuracio_xarxa.png" alt="Exemple: Captura de l'execució de comandes ip a, ping i nslookup">
+
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
+
+    <!-- APARTAT 4 -->
     <article class="apartat" id="apartat4">
-      <h2>4. Comprovació final</h2>
-      <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero
-         tempore, cum soluta nobis est eligendi optio cumque nihil impedit.
-         Abans de donar per acabat el sprint, revisa aquest resum:</p>
+      <h2>4. Instal·lació, gestió i desinstal·lació de programari</h2>
+      <p>Es van instal·lar diverses aplicacions essencials per a la gestió del sistema i eines de productivitat utilitzant gestors de paquets com <strong>APT</strong> i <strong>Snap</strong>, restaurant o desinstal·lant programari com a prova de gestió.</p>
+
       <ul>
-        <li>El sistema arrenca sense errors.</li>
-        <li>La xarxa respon correctament als <em>pings</em>.</li>
-        <li><strong>Els usuaris i grups creats coincideixen amb l'enunciat.</strong></li>
+        <li>Actualització dels llistats de repositoris amb <code>sudo apt update</code>.</li>
+        <li>Instal·lació de programari de gestió i utilitats amb <code>sudo apt install htop vlc gimp</code>.</li>
+        <li>Instal·lació d'aplicacions mitjançant Snap amb <code>sudo snap install code --classic</code>.</li>
+        <li>Verificació de l'execució fluida de les aplicacions instal·lades.</li>
+        <li>Demostració de la desinstal·lació completa d'un paquet utilitzant <code>sudo apt remove --purge &lt;paquet&gt;</code> i neteja de dependències amb <code>sudo apt autoremove</code>.</li>
       </ul>
-      <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-         fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
-         sequi nesciunt.</p>
+
+      <p><strong>Captura de la instal·lació i verificació de les aplicacions:</strong></p>
+      <img src="../img/exemple_gestio_programari.png" alt="Exemple: Captura de la instal·lació i execució d'aplicacions">
+
+      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l meitat de l'índex</a></p>
+    </article>
+
+    <!-- APARTAT 5 -->
+    <article class="apartat" id="apartat5">
+      <h2>5. Configuració de l'entorn de virtualització</h2>
+      <p>Per permetre la creació i simulació de màquines virtuals addicionals dins del propi sistema operatiu, es va procedir a instal·lar i configurar un entorn de virtualització.</p>
+
+      <ul>
+        <li>Instal·lació del programari de virtualització <strong>VirtualBox</strong> amb <code>sudo apt install virtualbox</code>.</li>
+        <li>Execució de l'aplicació i configuració inicial del programa.</li>
+        <li>Creació d'una nova màquina virtual de prova, definint el nom, el tipus de SO, la memòria RAM assignada i el disc rígid virtual.</li>
+      </ul>
+
+      <p><strong>Captura de l'entorn de virtualització VirtualBox configurat:</strong></p>
+      <img src="../img/exemple_virtualbox_config.png" alt="Exemple: Captura de VirtualBox amb una màquina virtual configurada">
+
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
+
+    <!-- APARTAT 6 -->
+    <article class="apartat" id="apartat6">
+      <h2>6. Comprovació i proves finals del sistema</h2>
+      <p>Finalment, es van realitzar proves globals per validar que tots els components configurats durant aquest sprint funcionen de manera integrada i sense errors.</p>
+
+      <ul>
+        <li>Comprovació del correcte inici del sistema des del gestor d'arrencada GRUB.</li>
+        <li>Verificació de la disponibilitat dels punts de restauració a Timeshift.</li>
+        <li>Comprovació de la connectivitat contínua de la xarxa TCP/IP i resolució de noms.</li>
+        <li>Execució de les eines de seguiment del sistema com <code>htop</code> per comprovar l'estat dels recursos.</li>
+      </ul>
+
+      <p><strong>Captura de les proves finals del sistema:</strong></p>
+      <img src="../img/exemple_proves_finals.png" alt="Exemple: Captura de les proves finals i resum del sistema">
+
+      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
+    </article>
+
   </section>
 </main>
 
