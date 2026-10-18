@@ -29,17 +29,35 @@
         <tr><th>#</th><th>Apartat</th></tr>
       </thead>
       <tbody>
-        <tr><td>1</td><td><a href="#apartat1">Instal·lació del SO i configuració de GRUB</a></td></tr>
-        <tr><td>2</td><td><a href="#apartat2">Punts de restauració i còpies de seguretat (Timeshift)</a></td></tr>
-        <tr><td>3</td><td><a href="#apartat3">Configuració i verificació de la xarxa TCP/IP</a></td></tr>
-        <tr><td>4</td><td><a href="#apartat4">Instal·lació, gestió i desinstal·lació de programari</a></td></tr>
-        <tr><td>5</td><td><a href="#apartat5">Configuració de l'entorn de virtualització</a></td></tr>
-        <tr><td>6</td><td><a href="#apartat6">Comprovació i proves finals del sistema</a></td></tr>
+        <tr><td>1</td><td><a href="#apartat1">Pinning Packet</a></td></tr>
+        <tr><td>2</td><td><a href="#apartat2">Instal·lació del SO i configuració de GRUB</a></td></tr>
+        <tr><td>3</td><td><a href="#apartat3">Punts de restauració i còpies de seguretat (Timeshift)</a></td></tr>
+        <tr><td>4</td><td><a href="#apartat4">Configuració i verificació de la xarxa TCP/IP</a></td></tr>
+        <tr><td>5</td><td><a href="#apartat5">Instal·lació, gestió i desinstal·lació de programari</a></td></tr>
+        <tr><td>6</td><td><a href="#apartat6">Configuració de l'entorn de virtualització</a></td></tr>
       </tbody>
     </table>
 
-    <!-- APARTAT 1 -->
     <article class="apartat" id="apartat1">
+      <h2>1. Pinning Packet</h2>
+      <p><strong>Què s'ha fet:</strong>
+      <p>He creat un fitxer de preferències on he definit una regla de prioritat personalitzada aplicada a l'origen dels paques</p>
+
+      <ul>
+        <li><strong>Control de prioritats:</strong> Per defecte, APT assigna una prioritat de 500 a tots els repositoris estàndard. Amb el <em>pinning</em> es pot prioritzar o restringir d'on s'instal·len les aplicacions.</li>
+        <li><strong>Evitar actualitzacions no desitjades:</strong> En entorns de servidors, aquesta tècnica permet forçar una versió o font concreta d'un paquet sense que altres repositoris la sobreescriguin automàticament durant una actualització del sistema.</li>
+        <li><strong>Demostració tècnica:</strong> Aquesta prova valida la capacitat d'administrar i auditar el comportament avançat del gestor de paquets APT mitjançant fitxers de configuració interns del sistema.</li>
+      </ul>
+
+      <img src="../img/Captura de pantalla de 2026-10-18 23-20-33.png">
+      <img src="../img/Captura de pantalla de 2026-10-18 23-28-16.png">
+      <img src="../img/Captura de pantalla de 2026-10-18 23-28-56.png">
+
+      <p class="ornar-index"><a href="#index-apartats"> Tornar a l'index</a></p>
+    </article>
+
+    <!-- APARTAT 1 -->
+    <article class="apartat" id="apartat2">
       <h2>1. Instal·lació del SO i configuració de GRUB</h2>
       <p>S'ha realitzat la instal·lació inicial del sistema operatiu <strong>Ubuntu</strong> en un entorn de màquina virtual. Un cop completada la instal·lació base, s'ha procedit a personalitzar el gestor d'arrencada <strong>GRUB</strong> per ajustar el temps d'espera del menú d'inici.</p>
       
@@ -63,7 +81,7 @@
     </article>
 
     <!-- APARTAT 2 -->
-    <article class="apartat" id="apartat2">
+    <article class="apartat" id="apartat3">
       <h2>2. Punts de restauració i còpies de seguretat (Timeshift)</h2>
       <p>Per garantir la seguretat de les dades i poder recuperar el sistema davant qualsevol fallada, s'ha configurat l'eina <strong>Timeshift</strong> per a la gestió de punts de restauració i la programació de còpies de seguretat automàtiques.</p>
 
@@ -91,7 +109,7 @@
     </article>
 
     <!-- APARTAT 3 -->
-    <article class="apartat" id="apartat3">
+    <article class="apartat" id="apartat4">
       <h2>3. Configuració i verificació de la xarxa TCP/IP</h2>
       <p>Es va realitzar la configuració de la xarxa per assegurar la connectivitat local i a Internet. Es van verificar els paràmetres de la interfície de xarxa i es va comprovar la resolució de noms i l'estat dels ports.</p>
 
@@ -113,7 +131,7 @@
     </article>
 
     <!-- APARTAT 4 -->
-    <article class="apartat" id="apartat4">
+    <article class="apartat" id="apartat5">
       <h2>4. Instal·lació, gestió i desinstal·lació de programari</h2>
       <p>Es van instal·lar diverses aplicacions essencials per a la gestió del sistema i eines de productivitat utilitzant gestors de paquets com <strong>APT</strong> i <strong>Snap</strong>, restaurant o desinstal·lant programari com a prova de gestió.</p>
 
@@ -135,7 +153,7 @@
     </article>
 
     <!-- APARTAT 5 -->
-    <article class="apartat" id="apartat5">
+    <article class="apartat" id="apartat6">
       <h2>5. Configuració de l'entorn de virtualització</h2>
       <p>Per permetre la creació i simulació de màquines virtuals addicionals dins del propi sistema operatiu, es va procedir a instal·lar i configurar un entorn de virtualització.</p>
 
