@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sprint 2 · Gestió de programari i usuaris</title>
+<title>Sprint 2 · Gestió de processos</title>
 <link rel="stylesheet" href="../css/estils.css">
 </head>
 <body>
@@ -16,8 +16,8 @@
   </nav>
   <div class="hero-titol">
     <p class="miguetes"><a href="../index.html">Portada</a> / <a href="../sprints.html">Índex de sprints</a> / Sprint 2</p>
-    <h1>Sprint 2 · Gestió de programari i usuaris</h1>
-    <p class="subtitol">Índex d'apartats d'aquest sprint</p>
+    <h1>Sprint 2 · Gestió de processos</h1>
+    <p class="subtitol">Missió: El servidor va lent · Administració de processos a Ubuntu</p>
   </div>
 </header>
 
@@ -29,33 +29,108 @@
         <tr><th>#</th><th>Apartat</th></tr>
       </thead>
       <tbody>
-        <tr><td>1</td><td><a href="#apartat1">Gestors de paquets</a></td></tr>
-        <tr><td>2</td><td><a href="#apartat2">Permisos i propietaris d'arxius</a></td></tr>
+        <tr><td>0</td><td><a href="#nivell0">Nivell 0 · Preparació de l'entorn i permisos</a></td></tr>
+        <tr><td>1</td><td><a href="#nivell1">Nivell 1 · Reconeixement i arbre de processos</a></td></tr>
+        <tr><td>2</td><td><a href="#nivell2">Nivell 2 · Monitoratge de CPU i memòria</a></td></tr>
+        <tr><td>3</td><td><a href="#nivell3">Nivell 3 · Filtratge i interrogatori amb ps i pgrep</a></td></tr>
+        <tr><td>4</td><td><a href="#nivell4">Nivell 4 · Primer pla i segon pla (jobs)</a></td></tr>
+        <tr><td>5</td><td><a href="#nivell5">Nivell 5 · Gestió de prioritats (nice i renice)</a></td></tr>
+        <tr><td>6</td><td><a href="#nivell6">Nivell 6 · Enviament de senyals (SIGTERM, SIGKILL, STOP/CONT)</a></td></tr>
+        <tr><td>7</td><td><a href="#nivell7">Nivell 7 · Persistència amb nohup i neteja final</a></td></tr>
       </tbody>
     </table>
 
-    <article class="apartat" id="apartat1">
-      <h2>1. Gestors de paquets</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-         tempor incididunt ut labore et dolore magna aliqua. El gestor de
-         paquets permet <strong>instal·lar, actualitzar i eliminar</strong>
-         programari de manera controlada.</p>
+    <article class="apartat" id="nivell0">
+      <h2>0. Preparació de l'entorn i permisos</h2>
+      <p>En aquesta primera fase s'ha creat el directori de treball <code>~/missio</code> i s'han redactat els cinc scripts de la simulació (<code>minador</code>, <code>backup_nocturn</code>, <code>espia</code>, <code>descarrega.sh</code> i <code>sospitosos.sh</code>). Per poder-los executar, se'ls ha atorgat el <strong>permís d'execució</strong> mitjançant <code>chmod +x</code> i s'ha llançat el sabotatge en segon pla.</p>
       <ul>
-        <li>Actualitzar la llista de paquets disponibles.</li>
-        <li>Instal·lar un paquet nou.</li>
-        <li>Eliminar un paquet que ja no es fa servir.</li>
+        <li><code>mkdir ~/missio && cd ~/missio</code>: creació i accés al directori de la pràctica.</li>
+        <li><code>chmod +x</code>: assignació de permisos d'execució (<code>-rwxrwxr-x</code>) als scripts.</li>
+        <li><code>./sospitosos.sh</code>: execució inicial dels processos que alenteixen el servidor.</li>
       </ul>
+      <img src="../img/captura1.png" alt="Captura 1: Permisos d'execució dels scripts amb ls -l i inici del sabotatge">
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
-    <article class="apartat" id="apartat2">
-      <h2>2. Permisos i propietaris d'arxius</h2>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-         ut aliquip ex ea commodo consequat. Cada arxiu té un
-         <strong>propietari, un grup i uns permisos</strong> que en determinen
-         l'accés.</p>
-      <img src="../img/exemple.svg" alt="Exemple de captura de pantalla dels permisos d'un arxiu">
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-         dolore eu fugiat nulla pariatur.</p>
+
+    <article class="apartat" id="nivell1">
+      <h2>1. Reconeixement i arbre de processos</h2>
+      <p>Un procés és una instància d'un programa en execució identificat per un número únic (<strong>PID</strong>) i creat per un procés pare (<strong>PPID</strong>). Mitjançant <code>ps</code> i <code>pstree</code> s'han localitzat els processos sospitosos i s'ha comprovat que, en acabar el script llançador, han quedat <strong>orfes</strong> i han estat adoptats per <code>systemd</code>.</p>
+      <ul>
+        <li><code>echo $$</code> i <code>ps -A | wc -l</code>: consulta del PID de la shell actual i recompte total de processos del sistema.</li>
+        <li><code>ps -u $USER</code>: llistat dels processos actius de l'usuari.</li>
+        <li><code>pstree -p $USER</code>: visualització jeràrquica on s'observa que els sospitosos pengen de <code>systemd</code>.</li>
+      </ul>
+      <img src="../img/captura2.png" alt="Captura 2: Sortida de pstree -p $USER mostrant els sospitosos penjant de systemd">
+      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
+    </article>
+
+    <article class="apartat" id="nivell2">
+      <h2>2. Monitoratge de CPU i memòria</h2>
+      <p>Per identificar quins processos saturen el rendiment del servidor s'ha utilitzat el monitor interactiu <code>top</code>. S'ha detectat que els dos processos <code>minador</code> consumeixen cadascun el <strong>50% del nucli 0 de la CPU</strong> (100% en conjunt), mentre que amb l'ordre <code>ps</code> s'ha obtingut el rànquing estàtic de consum.</p>
+      <ul>
+        <li><code>top</code> (tecles <code>P</code>, <code>M</code> i <code>1</code>): ordenació en temps real per CPU, memòria i desglossament per nuclis.</li>
+        <li><code>ps aux --sort=-%cpu | head -6</code>: llistat dels 5 processos amb més consum mitjà de CPU.</li>
+      </ul>
+      <img src="../img/captura3.png" alt="Captura 3: Pantalla de top ordenada per CPU amb els dos minadors al capdamunt">
+      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
+    </article>
+
+    <article class="apartat" id="nivell3">
+      <h2>3. Filtratge i interrogatori amb ps i pgrep</h2>
+      <p>Per obtenir les dades precises de cada procés sospitós sense soroll visual, s'han combinat filtres de text i consultes de columnes específiques. Això ha permès verificar el seu estat (<code>R</code> en execució, <code>S</code> dormint) i confirmar el seu procés pare.</p>
+      <ul>
+        <li><code>ps aux | grep [m]inador</code> i <code>pgrep -l 'minador|espia|backup'</code>: filtratge net dels PID i noms.</li>
+        <li><code>ps -o pid,ppid,user,stat,etime,%cpu,comm -C ...</code>: extracció personalitzada de mètriques i temps actiu.</li>
+        <li><code>ps -o pid,comm -p PPID</code>: identificació directa de <code>systemd</code> com a pare dels processos.</li>
+      </ul>
+      <img src="../img/captura4.png" alt="Captura 4: Filtratge amb pgrep, columnes personalitzades amb ps -o i identificació del PPID">
+      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
+    </article>
+
+    <article class="apartat" id="nivell4">
+      <h2>4. Primer pla i segon pla (jobs)</h2>
+      <p>S'ha monitorat el fitxer <code>progres.txt</code> des d'un segon terminal (T2) mitjançant <code>watch -n 1</code> mentre es gestionava l'execució de <code>descarrega.sh</code> a T1. S'ha comprovat la diferència entre tenir un procés ocupant el terminal en <strong>primer pla</strong>, congelar-lo temporalment o executar-lo en <strong>segon pla</strong>.</p>
+      <ul>
+        <li><code>Ctrl + Z</code>: atura el procés en primer pla (estat <code>T</code>) i congela el progrés a T2.</li>
+        <li><code>jobs -l</code>: mostra els treballs de la sessió actual i el seu PID.</li>
+        <li><code>bg %1</code> i <code>fg %1</code>: reprèn l'execució en segon pla (alliberant el terminal) o la retorna al primer pla.</li>
+      </ul>
+      <img src="../img/captura5.png" alt="Captura 5: Seqüència de Ctrl+Z, jobs -l, bg i fg a T1 amb el monitor watch a T2">
+      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
+    </article>
+
+    <article class="apartat" id="nivell5">
+      <h2>5. Gestió de prioritats (nice i renice)</h2>
+      <p>A Linux, el repartiment de CPU es regula amb el valor <strong>nice</strong> (de <code>-20</code> màxima prioritat a <code>19</code> mínima prioritat). Un usuari normal només pot reduir la prioritat dels seus processos, però amb privilegis de <code>root</code> s'ha assignat un valor de <code>-10</code> a la descàrrega urgent, fent que passi d'un 33% a <strong>més del 80% d'ús de CPU</strong>.</p>
+      <ul>
+        <li><code>renice -n -10 -p PID</code>: retorna <em>Permission denied</em> en executar-se sense privilegis.</li>
+        <li><code>sudo renice -n -10 -p PID</code>: augmenta la prioritat de <code>descarrega.sh</code> i accelera la velocitat de descàrrega.</li>
+      </ul>
+      <img src="../img/captura6.png" alt="Captura 6: top mostrant descarrega.sh amb NI -10 i >80% de CPU mentre avança a T2">
+      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
+    </article>
+
+    <article class="apartat" id="nivell6">
+      <h2>6. Enviament de senyals (SIGTERM, SIGKILL, STOP/CONT)</h2>
+      <p>Per neutralitzar els processos no desitjats s'ha seguit el protocol recomanat: enviar primer el senyal ordenat <code>SIGTERM</code> (15) i reservar <code>SIGKILL</code> (9) només per als processos que l'ignoren. Pel que fa a la còpia de seguretat legítima (<code>backup_nocturn</code>), s'ha posat en pausa temporal sense destruir-la.</p>
+      <ul>
+        <li><code>kill PID</code> (<code>SIGTERM</code>): tanca correctament els dos processos <code>minador</code>, però és ignorat pel <code>trap</code> de <code>espia</code>.</li>
+        <li><code>kill -9 PID</code> (<code>SIGKILL</code>): força l'eliminació immediata del procés <code>espia</code> des del nucli.</li>
+        <li><code>kill -STOP PID</code> i <code>kill -CONT PID</code>: congela <code>backup_nocturn</code> (estat <code>T</code>) i el reprèn posteriorment (estat <code>S</code>).</li>
+      </ul>
+      <img src="../img/captura7.png" alt="Captura 7: Eliminació de l'espia amb kill -9 i canvi d'estat T a S del backup_nocturn">
+      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
+    </article>
+
+    <article class="apartat" id="nivell7">
+      <h2>7. Persistència amb nohup i neteja final</h2>
+      <p>Quan es tanca un terminal, els processos que en depenen reben el senyal <code>SIGHUP</code> i finalitzen. Per evitar que la descàrrega es perdi en tancar la finestra, s'ha llançat amb l'ordre <code>nohup</code>, aconseguint que ignori el tancament, sigui adoptada per <code>systemd</code> i acabi completament. Finalment, s'han aturat tots els processos de prova amb <code>pkill</code>.</p>
+      <ul>
+        <li><code>nohup ./descarrega.sh &</code>: desvincula el procés del senyal <code>SIGHUP</code> en tancar el terminal.</li>
+        <li><code>pstree -ps $(pgrep descarrega)</code>: verifica que <code>systemd</code> n'ha assumit el control.</li>
+        <li><code>pkill 'minador|espia|backup_nocturn|descarrega'</code>: neteja final de tots els processos de la missió.</li>
+      </ul>
+      <img src="../img/captura8.png" alt="Captura 8: Descàrrega completada amb nohup a T2 i pstree -ps mostrant systemd com a pare">
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
   </section>
@@ -68,7 +143,7 @@
     </a>
     <span>Contingut sota llicència <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="license noopener">CC BY-NC-SA 4.0</a></span>
   </p>
-  <p class="autoria">Autor/a: <strong>Nom Cognom1 Cognom2</strong> · Pràctica 0 · Sistemes Operatius (ISOPJ1)</p>
+  <p class="autoria">Autor/a: <strong>Jeyson Diaz </strong> · Sprint 2 · Sistemes Operatius (ISOPJ1)</p>
 </footer>
 
 </body>
