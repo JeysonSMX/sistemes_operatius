@@ -60,7 +60,7 @@
         <li><code>ps -u $USER</code>: llistat dels processos actius de l'usuari.</li>
         <li><code>pstree -p $USER</code>: visualització jeràrquica on s'observa que els sospitosos pengen de <code>systemd</code>.</li>
       </ul>
-      <img src="../img/captura2.png" alt="Captura 2: Sortida de pstree -p $USER mostrant els sospitosos penjant de systemd">
+      <img src="../img/Captura de pantalla de 2026-11-17 18-19-06.png" alt="Captura 2: Sortida de pstree -p $USER mostrant els sospitosos penjant de systemd">
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
 
@@ -71,7 +71,7 @@
         <li><code>top</code> (tecles <code>P</code>, <code>M</code> i <code>1</code>): ordenació en temps real per CPU, memòria i desglossament per nuclis.</li>
         <li><code>ps aux --sort=-%cpu | head -6</code>: llistat dels 5 processos amb més consum mitjà de CPU.</li>
       </ul>
-      <img src="../img/captura3.png" alt="Captura 3: Pantalla de top ordenada per CPU amb els dos minadors al capdamunt">
+      <img src="../img/Captura de pantalla de 2026-11-17 18-21-56.png" alt="Captura 3: Pantalla de top ordenada per CPU amb els dos minadors al capdamunt">
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
 
@@ -83,7 +83,7 @@
         <li><code>ps -o pid,ppid,user,stat,etime,%cpu,comm -C ...</code>: extracció personalitzada de mètriques i temps actiu.</li>
         <li><code>ps -o pid,comm -p PPID</code>: identificació directa de <code>systemd</code> com a pare dels processos.</li>
       </ul>
-      <img src="../img/captura4.png" alt="Captura 4: Filtratge amb pgrep, columnes personalitzades amb ps -o i identificació del PPID">
+      <img src="../img/Captura de pantalla de 2026-11-17 18-30-21.png" alt="Captura 4: Filtratge amb pgrep, columnes personalitzades amb ps -o i identificació del PPID">
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
 
@@ -95,7 +95,8 @@
         <li><code>jobs -l</code>: mostra els treballs de la sessió actual i el seu PID.</li>
         <li><code>bg %1</code> i <code>fg %1</code>: reprèn l'execució en segon pla (alliberant el terminal) o la retorna al primer pla.</li>
       </ul>
-      <img src="../img/captura5.png" alt="Captura 5: Seqüència de Ctrl+Z, jobs -l, bg i fg a T1 amb el monitor watch a T2">
+      <img src="../img/Captura de pantalla de 2026-11-17 18-37-55.png" alt="Captura 5: Seqüència de Ctrl+Z, jobs -l, bg i fg a T1 amb el monitor watch a T2">
+      <img src="../img/Captura de pantalla de 2026-11-17 18-38-03.png">
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
 
@@ -106,7 +107,8 @@
         <li><code>renice -n -10 -p PID</code>: retorna <em>Permission denied</em> en executar-se sense privilegis.</li>
         <li><code>sudo renice -n -10 -p PID</code>: augmenta la prioritat de <code>descarrega.sh</code> i accelera la velocitat de descàrrega.</li>
       </ul>
-      <img src="../img/captura6.png" alt="Captura 6: top mostrant descarrega.sh amb NI -10 i >80% de CPU mentre avança a T2">
+      <img src="../img/Captura de pantalla de 2026-11-17 18-46-55.png" alt="Captura 6: top mostrant descarrega.sh amb NI -10 i >80% de CPU mentre avança a T2">
+      <img src="../img/Captura de pantalla de 2026-11-17 18-47-19.png" alt="Captura 6: top mostrant descarrega.sh amb NI -10 i >80% de CPU mentre avança a T2">
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
 
@@ -118,7 +120,7 @@
         <li><code>kill -9 PID</code> (<code>SIGKILL</code>): força l'eliminació immediata del procés <code>espia</code> des del nucli.</li>
         <li><code>kill -STOP PID</code> i <code>kill -CONT PID</code>: congela <code>backup_nocturn</code> (estat <code>T</code>) i el reprèn posteriorment (estat <code>S</code>).</li>
       </ul>
-      <img src="../img/captura7.png" alt="Captura 7: Eliminació de l'espia amb kill -9 i canvi d'estat T a S del backup_nocturn">
+      <img src="../img/Captura de pantalla de 2026-11-17 18-52-40.png" alt="Captura 7: Eliminació de l'espia amb kill -9 i canvi d'estat T a S del backup_nocturn">
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
 
@@ -130,7 +132,8 @@
         <li><code>pstree -ps $(pgrep descarrega)</code>: verifica que <code>systemd</code> n'ha assumit el control.</li>
         <li><code>pkill 'minador|espia|backup_nocturn|descarrega'</code>: neteja final de tots els processos de la missió.</li>
       </ul>
-      <img src="../img/captura8.png" alt="Captura 8: Descàrrega completada amb nohup a T2 i pstree -ps mostrant systemd com a pare">
+      <img src="../img/Captura de pantalla de 2026-11-17 18-57-27.png" alt="Captura 8: Descàrrega completada amb nohup a T2 i pstree -ps mostrant systemd com a pare">
+      <img src="../img/Captura de pantalla de 2026-11-17 19-00-37.png" alt="Captura 8: Descàrrega completada amb nohup a T2 i pstree -ps mostrant systemd com a pare">
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
   </section>
